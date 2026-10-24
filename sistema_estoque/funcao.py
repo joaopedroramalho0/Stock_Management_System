@@ -5,20 +5,14 @@ import os
 
 def Menu():
     print("\n" + "=" * 48)
-    print("             STOCKFLOW v0.1.0")
     print("       Sistema de Gestão de Estoque")
     print("=" * 48)
 
     print("""
     [1] Cadastrar produto
     [2] Consultar produtos
-    [3] Buscar produto por ID
-    [4] Atualizar produto
-    [5] Excluir produto
-    [6] Registrar venda
-    [7] Consultar histórico de vendas
-    [8] Relatório de estoque
-    [9] Relatório de vendas
+    [3] Atualizar produto
+    [4] Excluir produto
     [0] Sair
     """)
 
@@ -60,6 +54,7 @@ def CadastrarProduto(nome, valor, id_produto, quantidade):
     produtos.append(produto)
     with open("produtos.json", "w", encoding="utf-8") as arquivo:
         json.dump(produtos, arquivo, indent=4, ensure_ascii=False)
+
 
 
 def ConsultarProdutosID(id_produto):
@@ -183,7 +178,38 @@ def ExcluirProdutos(id_produto):
                     print("Digite um valor valido 'S' para Sim e 'N' para Não. ")
                     continue
 
-            
+
+
+def ConsultarProduto(id_produto):
+    """
+    Consulta e exibe as informações de um produto pelo seu ID.
+
+    Percorre os produtos cadastrados no arquivo JSON e exibe
+    o nome, o valor, o ID e a quantidade do produto encontrado.
+
+    Args:
+        id_produto (int): Identificador do produto a ser consultado.
+
+    Returns:
+        None: A função exibe os dados do produto no terminal.
+        Caso o ID não seja encontrado, informa ao usuário
+        que o produto não existe.
+    """
+    with open("produtos.json", "r", encoding="utf-8") as arquivo:
+            produtos = json.load(arquivo)
+
+    for produto in produtos:
+        if produto["id"] == id_produto:
+            print(f"Nome: {produto['nome']}")
+            print(f"Valor: {produto['valor']:.2f}")
+            print(f"ID do Produto: {produto['id']}")
+            print(f"Quantidade: {produto['quantidade']}")
+            return
+    print("Produto nao encontrado. ")
+    
+
+
+     
 
     
 
